@@ -23,7 +23,7 @@ import time
 from contextlib import contextmanager
 from lightgbm import LGBMClassifier
 from sklearn.metrics import roc_auc_score, roc_curve
-from sklearn.model_selection import KFold, StratifiedKFold
+from sklearn.model_selection import KFold, StratifiedKFold, train_test_split
 import matplotlib.pyplot as plt
 import seaborn as sns
 import re
@@ -46,13 +46,12 @@ def one_hot_encoder(df, nan_as_category = True):
     new_columns = [c for c in df.columns if c not in original_columns]
     return df, new_columns
 
-# Preprocess application_train.csv and application_test.csv
-def application_train_test(num_rows=None, nan_as_category=False):
+# Preprocess application_train.csv
+def application_train(num_rows=None, nan_as_category=False):
     # Read data and merge
     df = pd.read_csv('Données/application_train.csv', nrows=num_rows)
-    test_df = pd.read_csv('Données/application_test.csv', nrows=num_rows)
-    print("Train samples: {}, test samples: {}".format(df.shape[0], test_df.shape[0]))
-    df = df.append(test_df).reset_index()
+    print("Train samples: {}".format(df.shape[0]))
+    df = df.reset_index(drop=True)
     # Optional: Remove 4 applications with XNA CODE_GENDER (train set)
     df = df[df['CODE_GENDER'] != 'XNA']
     
@@ -70,7 +69,6 @@ def application_train_test(num_rows=None, nan_as_category=False):
     df['INCOME_PER_PERSON'] = df['AMT_INCOME_TOTAL'] / df['CNT_FAM_MEMBERS'] # Revenus du client / nombres de pers. dans sa famille
     df['ANNUITY_INCOME_PERC'] = df['AMT_ANNUITY'] / df['AMT_INCOME_TOTAL'] # Remboursement du prêt / Revenus
     df['PAYMENT_RATE'] = df['AMT_ANNUITY'] / df['AMT_CREDIT'] # Remboursement / Crédit total
-    del test_df
     gc.collect()
     return df
 
@@ -251,8 +249,11 @@ def credit_card_balance(num_rows=None, nan_as_category=True):
 # Parameters from Tilii kernel: https://www.kaggle.com/tilii7/olivier-lightgbm-parameters-by-bayesian-opt/code
 def kfold_lightgbm(df, num_folds, stratified=False, debug=False):
     # Divide in training/validation and test data
-    train_df = df[df['TARGET'].notnull()]
-    test_df = df[df['TARGET'].isnull()]
+    X = df.loc[:, df.columns != 'TARGET']
+    y = df['TARGET']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
+    train_df = X_train.join(y_train)
+    test_df = X_test.join(y_test)
     print("Starting LightGBM. Train shape: {}, test shape: {}".format(train_df.shape, test_df.shape))
     del df
     gc.collect()
@@ -306,14 +307,15 @@ def kfold_lightgbm(df, num_folds, stratified=False, debug=False):
     # Write submission file and plot feature importance
     if not debug:
         test_df['TARGET'] = sub_preds
-        test_df[['SK_ID_CURR', 'TARGET']].to_csv('df_test_simple.csv', index=False)
         test_df.to_csv('df_test_complet.csv', index=False)
         train_df.to_csv('df_train_complet.csv', index=False)
-    liste_best_features = display_importances(feature_importance_df)
+        print('shape before best features :', train_df.shape, test_df.shape)
+    best_features = display_importances(feature_importance_df)
     if not debug:
+        liste_best_features = best_features['feature'].unique().tolist()
         liste_best_features.append('TARGET')
-        test_df[liste_best_features].to_csv('df_test.csv', index=False)
-        train_df[liste_best_features].to_csv('df_train.csv', index=False)
+        test_df[liste_best_features].to_csv('df_test_best.csv', index=False)
+        train_df[liste_best_features].to_csv('df_train_best.csv', index=False)
     return feature_importance_df
 
 # Display/plot feature importance
@@ -325,14 +327,12 @@ def display_importances(feature_importance_df_):
     plt.title('LightGBM Features (avg over folds)')
     plt.tight_layout()
     plt.savefig('lgbm_importances.png')
-    print('best_features.shape =', best_features.shape)
-    liste_best_features = best_features['feature'].iloc[:80].to_list()
-    return liste_best_features
+    return best_features
 
 
 def preprocess_total(debug=False):
     num_rows = 10000 if debug else None
-    df = application_train_test(num_rows)
+    df = application_train(num_rows)
     with timer("Process bureau and bureau_balance"):
         bureau = bureau_and_balance(num_rows)
         print("Bureau df shape:", bureau.shape)
