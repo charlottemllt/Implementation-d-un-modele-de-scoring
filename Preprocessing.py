@@ -310,24 +310,30 @@ def kfold_lightgbm(df, num_folds, stratified=False, debug=False):
         test_df.to_csv('df_test_complet.csv', index=False)
         train_df.to_csv('df_train_complet.csv', index=False)
         print('shape before best features :', train_df.shape, test_df.shape)
-    best_features = display_importances(feature_importance_df)
+    best_features40, best_features80 = display_importances(feature_importance_df)
     if not debug:
-        liste_best_features = best_features['feature'].unique().tolist()
-        liste_best_features.append('TARGET')
-        test_df[liste_best_features].to_csv('df_test_best.csv', index=False)
-        train_df[liste_best_features].to_csv('df_train_best.csv', index=False)
+        liste_best_features40 = best_features40['feature'].unique().tolist()
+        liste_best_features40.append('TARGET')
+        test_df[liste_best_features40].to_csv('df_test_best40.csv', index=False)
+        train_df[liste_best_features40].to_csv('df_train_best40.csv', index=False)
+        liste_best_features80 = best_features80['feature'].unique().tolist()
+        liste_best_features80.append('TARGET')
+        test_df[liste_best_features80].to_csv('df_test_best80.csv', index=False)
+        train_df[liste_best_features80].to_csv('df_train_best80.csv', index=False)
     return feature_importance_df
 
 # Display/plot feature importance
 def display_importances(feature_importance_df_):
-    cols = feature_importance_df_[["feature", "importance"]].groupby("feature").mean().sort_values(by="importance", ascending=False)[:40].index
-    best_features = feature_importance_df_.loc[feature_importance_df_.feature.isin(cols)]
+    cols40 = feature_importance_df_[["feature", "importance"]].groupby("feature").mean().sort_values(by="importance", ascending=False)[:40].index
+    cols80 = feature_importance_df_[["feature", "importance"]].groupby("feature").mean().sort_values(by="importance", ascending=False)[:80].index
+    best_features40 = feature_importance_df_.loc[feature_importance_df_.feature.isin(cols40)]
+    best_features80 = feature_importance_df_.loc[feature_importance_df_.feature.isin(cols80)]
     plt.figure(figsize=(8, 10))
     sns.barplot(x="importance", y="feature", data=best_features.sort_values(by="importance", ascending=False))
     plt.title('LightGBM Features (avg over folds)')
     plt.tight_layout()
     plt.savefig('lgbm_importances.png')
-    return best_features
+    return best_features40, best_features80
 
 
 def preprocess_total(debug=False):
