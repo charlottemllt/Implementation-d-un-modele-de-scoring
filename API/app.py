@@ -4,7 +4,7 @@ import pandas as pd
 
 model = joblib.load('LGBM.joblib').best_estimator_
 df_test = pd.read_csv('df_API_lite.csv')
-liste_clients = list(df_test['SK_ID_CURR'])
+liste_clients = list(df_test['SK_ID_CURR'].sort_values())
 
 app = Flask(__name__)
 
@@ -37,7 +37,7 @@ def predict_get():
             predict = 'Crédit non accordé'
     else:
         predict = 'Client inconnu'
-    return jsonify({ 'retour_prediction' : str(predict)})
+    return jsonify({ 'Retour_prediction' : str(predict)})
 
 # def predict_result(id):
 #     seuil=0.91
