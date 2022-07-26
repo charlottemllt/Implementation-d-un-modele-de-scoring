@@ -3,7 +3,7 @@ import joblib
 import pandas as pd
 
 model = joblib.load('LGBM.joblib').best_estimator_
-df_test = pd.read_csv('df_API.csv')
+df_test = pd.read_csv('df_API_lite.csv')
 liste_clients = list(df_test['SK_ID_CURR'])
 
 app = Flask(__name__)
