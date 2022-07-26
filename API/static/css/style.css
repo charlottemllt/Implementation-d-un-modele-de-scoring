@@ -1,0 +1,28 @@
+body {
+    text-align: center;
+    background-color: SlateGrey;
+}
+p {
+    color: white;
+    font-size: 1.2em;
+    display: inline-block;
+    margin:  20px;
+}
+img {
+    margin: 40px 0 20px 0;
+    width: 300px;
+}
+input {
+  width: 300px;
+  margin: 20px 20px;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.3em;
+  text-align: center;
+}
+
+input:focus {
+    outline: none;
+    border: none;
+}
