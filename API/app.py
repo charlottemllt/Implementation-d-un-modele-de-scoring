@@ -37,7 +37,7 @@ def predict_get():
             predict = 'Crédit non accordé'
     else:
         predict = 'Client inconnu'
-    return jsonify({ 'Retour_prediction' : str(predict)})
+    return render_template("result.html", prediction=predict, ID_client=id)
 
 # def predict_result(id):
 #     seuil=0.91
