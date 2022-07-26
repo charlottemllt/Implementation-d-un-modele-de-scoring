@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Tableau de bord</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    </head>
+    <body>
+        <img src="https://raw.githubusercontent.com/charlottemllt/Projet-7/main/API/logo.jpg">
+        <br>
+        <form action="predict/" method="post">
+            <p>Entrez l'ID du client</p>
+            <br>
+            <input type="int" name="ID_client">
+            <br>
+            <input type="submit" value="Prédire" id="bouton_predire">
+        </form>
+    </body>
+</html>
