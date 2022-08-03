@@ -7,6 +7,7 @@ from streamlit_shap import st_shap
 import shap
 import plotly.express as px
 import numpy as np
+import matplotlib
 
 best_model = joblib.load('LGBM.joblib').best_estimator_
 
