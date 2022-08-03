@@ -1,1 +1,1 @@
-Commande ECHO activ‚e.
+web: gunicorn dashboard:app
