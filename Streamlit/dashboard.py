@@ -5,9 +5,6 @@ import plotly.graph_objects as go
 import joblib
 from streamlit_shap import st_shap
 import shap
-import matplotlib
-import matplotlib.pyplot as plt
-from matplotlib.colors import LinearSegmentedColormap
 import plotly.express as px
 import numpy as np
 
