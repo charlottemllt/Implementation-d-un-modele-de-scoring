@@ -9,3 +9,4 @@ shap==0.41.0
 numpy==1.22.4
 matplotlib==3.5.2
 lightgbm==3.3.2
+scikit-learn==1.0.2
