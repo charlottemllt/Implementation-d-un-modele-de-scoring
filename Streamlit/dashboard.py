@@ -156,10 +156,10 @@ def main():
         
         if ((var1_cat + var2_cat) == 0) or (var1_cat == 1 and var2_cat == 0):
             scat = px.scatter(df_comp, x=variable2, y=variable1, color='Score', opacity=0.75,
-                              color_continuous_scale=[(0.0, 'red'),   (0.5, 'orange'),
-                                                      (0.5, 'orange'), (0.7, 'yellow'),
-                                                      (0.7, 'yellow'), (0.91, 'lime'),
-                                                      (0.91, 'lime'),  (1.0, 'green')])
+                              color_continuous_scale=[(0.0, 'darkred'),   (0.5, 'red'),
+                                                      (0.5, 'red'), (0.7, 'orange'),
+                                                      (0.7, 'orange'), (0.91, 'yellow'),
+                                                      (0.91, 'green'),  (1.0, 'green')])
             scat.add_trace(go.Scatter(x=new_df[variable2], y=new_df[variable1], mode='markers',
                                       marker=dict(size=16, color='#8f00ff'), opacity=0.99, name='Client ' + str(ID_client)))
             scat.update_layout(legend=dict(yanchor="bottom", y=1.02, xanchor="right", x=1))
@@ -173,10 +173,10 @@ def main():
             st.write(fig)
         else:
             scat = px.scatter(df_comp, x=variable1, y=variable2, color='Score', opacity=0.75,
-            color_continuous_scale=[(0.0, 'red'),   (0.5, 'orange'),
-                                    (0.5, 'orange'), (0.7, 'yellow'),
-                                    (0.7, 'yellow'), (0.91, 'lime'),
-                                    (0.91, 'lime'),  (1.0, 'green')])
+            color_continuous_scale=[(0.0, 'darkred'),   (0.5, 'red'),
+                                    (0.5, 'red'), (0.7, 'orange'),
+                                    (0.7, 'orange'), (0.91, 'yellow'),
+                                    (0.91, 'green'),  (1.0, 'green')])
             scat.add_trace(go.Scatter(x=new_df[variable1], y=new_df[variable2], mode='markers',
                                       marker=dict(size=16, color='#8f00ff'), opacity=0.99, name='Client ' + str(ID_client)))
             scat.update_layout(legend=dict(yanchor="bottom", y=1.02, xanchor="right", x=1))
