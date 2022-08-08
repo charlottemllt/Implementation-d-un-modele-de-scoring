@@ -63,9 +63,7 @@ def main():
 
     # Take predictions from the API
     session = requests.Session()
-    st.write(ID_client)
     predictions = fetch(session, f"https://api-scoring-credit.herokuapp.com/predict/{ID_client}")
-    st.write(predictions)
     accord_credit = "Oui" if predictions['retour_prediction'] == '1' else "Non" #✅
     score = float(predictions['predict_proba_1'])
 
