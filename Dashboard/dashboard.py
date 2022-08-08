@@ -50,7 +50,7 @@ def main():
         layout="wide",
     )
 
-    df_dashboard_url = "https://raw.githubusercontent.com/charlottemllt/Implementation-d-un-modele-de-scoring/master/Streamlit/df_dashboard_lite.csv"
+    df_dashboard_url = "https://raw.githubusercontent.com/charlottemllt/Implementation-d-un-modele-de-scoring/master/Dashboard/df_dashboard_lite.csv"
     df = pd.read_csv(df_dashboard_url)
 
     # dashboard title
@@ -71,7 +71,7 @@ def main():
 
     # Shap values
     explainer = shap.TreeExplainer(best_model)
-    df_api_url = "https://raw.githubusercontent.com/charlottemllt/Implementation-d-un-modele-de-scoring/master/API/df_API_lite.csv"
+    df_api_url = "https://raw.githubusercontent.com/charlottemllt/Implementation-d-un-modele-de-scoring/master/Dashboard/df_API_lite.csv"
     df_API = pd.read_csv(df_api_url)
     df_shap = df_API.loc[:, df_API.columns != 'SK_ID_CURR']
     shap_values = explainer.shap_values(df_shap)
@@ -161,7 +161,7 @@ def main():
             else:
                 var2_cat = 0
         
-        df_comp = pd.read_csv('https://raw.githubusercontent.com/charlottemllt/Implementation-d-un-modele-de-scoring/master/Streamlit/df_comp_lite.csv')
+        df_comp = pd.read_csv('https://raw.githubusercontent.com/charlottemllt/Implementation-d-un-modele-de-scoring/master/Dashboard/df_comp_lite.csv')
         df_comp = feature_engineering(df_comp)
         if variable1 == variable2:
             df_comp = df_comp[[var_en1, 'TARGET', 'Score']].dropna()
