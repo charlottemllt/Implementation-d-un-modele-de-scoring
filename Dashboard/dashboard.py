@@ -21,8 +21,6 @@ def fetch(session, url):
 
 def feature_engineering(df):
     new_df = pd.DataFrame()
-    #colonnes_non_modif = ['SK_ID_CURR', 'EXT_SOURCE_2', 'EXT_SOURCE_3', 'PAYMENT_RATE', 'AMT_GOODS_PRICE', 'AMT_ANNUITY', 'AMT_CREDIT',
-     #                     'AMT_INCOME_TOTAL', 'CNT_FAM_MEMBERS', 'INCOME_PER_PERSON']
     new_df = df.copy()
     new_df['CODE_GENDER'] = df['CODE_GENDER'].apply(lambda x: 'Femme' if x == 1 else 'Homme')
     new_df['DAYS_EMPLOYED'] = df['DAYS_EMPLOYED'].apply(lambda x : -x/365.25)
@@ -65,7 +63,9 @@ def main():
 
     # Take predictions from the API
     session = requests.Session()
+    st.write(ID_client)
     predictions = fetch(session, f"https://api-scoring-credit.herokuapp.com/predict/{ID_client}")
+    st.write(predictions)
     accord_credit = "Oui" if predictions['retour_prediction'] == '1' else "Non" #✅
     score = float(predictions['predict_proba_1'])
 
