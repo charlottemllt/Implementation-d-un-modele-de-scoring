@@ -7,10 +7,8 @@ from streamlit_shap import st_shap
 import shap
 import plotly.express as px
 import numpy as np
-import matplotlib
-from collections import Counter
 
-best_model = joblib.load('LGBM.joblib').best_estimator_
+best_model = joblib.load('https://raw.githubusercontent.com/charlottemllt/Implementation-d-un-modele-de-scoring/master/Dashboard/LGBM.joblib').best_estimator_
 
 def fetch(session, url):
     try:
