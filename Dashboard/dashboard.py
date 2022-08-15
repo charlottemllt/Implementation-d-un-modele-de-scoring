@@ -66,7 +66,6 @@ def main():
     score = float(predictions['predict_proba_1'])
 
     # Shap values
-    shap.initjs()
     explainer = shap.TreeExplainer(best_model)
     df_api_url = "https://raw.githubusercontent.com/charlottemllt/Implementation-d-un-modele-de-scoring/master/Dashboard/df_API_lite.csv"
     df_API = pd.read_csv(df_api_url)
