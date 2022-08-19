@@ -1,0 +1,15 @@
+Données/
+df_API.csv
+df_comp.csv
+df_dashboard.csv
+.ipynb_checkpoints/
+__pycache__/
+
+Dossier Code/.ipynb_checkpoints/
+Dossier Code/X_test.csv
+Dossier Code/X_train.csv
+Dossier Code/__pycache__/
+Dossier Code/df_final.csv
+Dossier Code/y_test.csv
+Dossier Code/y_train.csv
+Dossier Code/Modèles/
