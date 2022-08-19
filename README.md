@@ -19,9 +19,10 @@ Le dossier *API* contient tous les fichiers nécessaires au déploiement de l'AP
 
 Le dossier *Dashboard* contient tous les fichiers nécessaires au déploiement du dashboard.
 
-Le dossier *Dossier Code* contient les notebooks de preprocessing et de modélisation ainsi qu'un notebook permettant de générer des fichiers de données qui seront utilisés dans le dahsboard (moins volumineux que nos fichiers de données complets)
+Le dossier *Dossier Code* contient les notebooks de preprocessing et de modélisation ainsi qu'un notebook permettant de générer des fichiers de données qui seront utilisés dans le dahsboard (moins volumineux que nos fichiers de données complets).
 
 
 ### Sources externes
 L'api est disponible [ici](https://api-scoring-credit.herokuapp.com/).
+
 Le dashboard est disponible [ici](https://dashboard-scoring-credit.herokuapp.com/).
