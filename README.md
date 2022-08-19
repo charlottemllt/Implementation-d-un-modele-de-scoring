@@ -1,6 +1,6 @@
 # Implémentation d'un modèle de scoring
 
-Ce travail a été réalisé lors du projet 7 de ma formation [OpenClassrooms](https://openclassrooms.com/fr/) de Data Scientist durant les mois de Juin à Août 2022. Il s'appuie sur les données (disponibles sur [Kaggle](https://www.kaggle.com/c/home-credit-default-risk/data) de l'entreprise *Prêt à depenser*.
+Ce travail a été réalisé lors du projet 7 de ma formation [OpenClassrooms](https://openclassrooms.com/fr/) de Data Scientist durant les mois de Juin à Août 2022. Il s'appuie sur les données (disponibles sur [Kaggle](https://www.kaggle.com/c/home-credit-default-risk/data)) de l'entreprise *Prêt à depenser*.
 
 ### Mission
 Le but du projet est de mettre en œuvre un outil de “scoring crédit” (un algorithme de classification) pour calculer la probabilité qu’un client rembourse son crédit, puis classifier la demande en crédit accordé ou refusé.
